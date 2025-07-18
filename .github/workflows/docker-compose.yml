@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app/backend
+    volumes:
+      - .:/app
+    command: bun src/index.ts
+    ports:
+      - "3001:3001"  # Or whatever your backend port is
+    depends_on:
+      - frontend
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app/frontend
+    volumes:
+      - .:/app
+    command: bun dev
+    ports:
+      - "3000:3000"  # Assuming frontend runs on port 3000
